@@ -8,7 +8,7 @@ This program is written for unix operating systems and requires INFERNAL, python
 # Installation
 Have conda installed, then simply cd into the directory with install.sh. Then, run the install using sh (e.g. sh ./install.sh) to install tbox-scan. A path env will be set to the tbox-scan directory that contains default files for running tbox-scan. 
 
-     sh ./install.sh
+     sudo sh ./install.sh
      
 # Using tbox-scan 
   
