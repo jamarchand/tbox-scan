@@ -13,7 +13,7 @@ outfile = 'out.csv'
 
 aalut=pd.read_csv('rccodonLUT.csv')
  
-#os.system('cmsearch --notrunc --notextw RF00230.cm '+infile+' > INFERNAL.txt')
+os.system('cmsearch --notrunc --notextw RF00230.cm '+infile+' > INFERNAL.txt')
 os.system('python3 pipeline_master.py INFERNAL.txt '+outfile+' '+infile+' $3 > log.txt')
 out = pd.read_csv(outfile)
 print(out)
@@ -29,7 +29,8 @@ for i in range (0,len(out)):
         aalist[i]="NONE"
 
 out['AA']=aalist
-outmess=out[['Name','AA','Tbox_start', 'Tbox_end', 'codon_region', 'codon', 'discriminator', 'Score']]
+out['Locus'] = out['Name'].str.split(':').str[-1]
+outmess=out[['Locus','Score','AA', 'codon_region', 'codon', 'discriminator']]
 
 
 print(outmess)
