@@ -25,7 +25,7 @@ def read_INFERNAL(file):
     seqLine = -1
 
     Tboxes = {'Name':[], 'Rank':[], 'E_value':[], 'Score':[], 'Bias':[], 'Tbox_start':[],'Tbox_end':[],
-               'CM_accuracy':[], 'GC':[], 'Sequence':[], 'Structure':[]}
+               'Strand':[], 'CM_accuracy':[], 'GC':[], 'Sequence':[], 'Structure':[]}
 
     with open(file) as f:
         for lineCount, line in enumerate(f):
@@ -37,6 +37,7 @@ def read_INFERNAL(file):
                 seqLine = lineCount + 9
 
             if lineCount == metadataLine:
+                #print(line)#debug
                 metadata = list(filter(None, line.split(' '))) #Splits by spaces, and strips empty strings
 
                 Tboxes['Rank'].append(int(metadata[0][1:len(metadata[0])-1])) #All except first and last characters
@@ -47,7 +48,7 @@ def read_INFERNAL(file):
                 Tboxes['Tbox_start'].append(int(Tbox_start))
                 Tbox_end = metadata[10]
                 Tboxes['Tbox_end'].append(int(Tbox_end))
-                #Tboxes['Strand'].append(metadata[11])
+                Tboxes['Strand'].append(metadata[11])
                 Tboxes['CM_accuracy'].append(float(metadata[13]))
                 Tboxes['GC'].append(float(metadata[15][0:4])) #ignore the \n at the end
 
@@ -829,7 +830,8 @@ def trim(seq_df):
 #For TRANSCRIPTIONAL T-boxes only (RF00230)
 def tbox_predict(INFERNAL_file, predictions_file, fasta_file = None, score_cutoff = 15):
     score_cutoff = int(score_cutoff) #makes it an int, if it was passed as a string
-
+    downstream_bases = 100 #for the fasta processing, number of downstream bases to include after antiterminator end
+    
     #Read the input file into a dataframe
     tbox_all_DF = read_INFERNAL(INFERNAL_file)
     #Initialize the dataframe columns for prediction output
@@ -854,7 +856,6 @@ def tbox_predict(INFERNAL_file, predictions_file, fasta_file = None, score_cutof
         
     #Predict the t-boxes
     for i, name in enumerate(tbox_all_DF['Name']):
-        print(name) #Write to log
         
         #Predict the features. Use offset of 1 to convert 0-indexed Python format to standard sequence format
         tbox = tbox_features(tbox_all_DF['Sequence'][i], tbox_all_DF['Structure'][i], offset = 1)
@@ -874,39 +875,42 @@ def tbox_predict(INFERNAL_file, predictions_file, fasta_file = None, score_cutof
         #Check the score
         if tbox_all_DF.at[tbox_all_DF.index[i], 'Score'] < score_cutoff:
             tbox_all_DF.at[tbox_all_DF.index[i], 'warnings'] += "LOW_SCORE;"
-        
-    #Perform the fasta processing (if enabled)
-    if fasta_file is not None:
-        fastas = {'Name':[], 'FASTA_sequence':[]}
-        #Read the fasta file
+    
+    #Add the fasta sequences
+    for i in range(len(tbox_all_DF['Name'])):
+    
         with open(fasta_file) as f:
-            for fasta in SeqIO.parse(f,'fasta'):
-                name, sequence = fasta.id, str(fasta.seq)
-                fastas['Name'].append(name)
-                fastas['FASTA_sequence'].append(sequence)
-        #Merge with T-box dataframe
-        fasta_DF = pd.DataFrame(fastas)
-        #fasta_DF.to_csv('test_fasta.csv', index = True, header = True)
-        merged = pd.merge(fasta_DF, tbox_all_DF, on = 'Name', how = 'left') #Left merge to preserve all FASTA sequences
-        
-        #Convert positions from INFERNAL-relative to FASTA-relative
-        merged = tbox_derive(merged)
-        #merged.to_csv('test_merge.csv', index = True, header = True)
-        print('Feature derivation complete. Running thermodynamics.')
-        thermo = run_thermo(merged)
-        print('Trimming structures and sequences')
-        thermo.to_csv(predictions_file, index = False, header = True)
-        thermo = trim(thermo)
-        
-        print('Removing duplicate T-boxes')
-        thermo.drop_duplicates(subset = 'Sequence', keep = 'first', inplace = True) #Drop duplicate T-boxes
-        
-        #Write output
-        thermo.to_csv(predictions_file, index = False, header = True)
-        return 0
-        
+
+            for fasta in SeqIO.parse(f,'fasta'): #there should just be 1
+
+                if tbox_all_DF['Strand'][i] == '+':
+                    tbox_all_DF.at[tbox_all_DF.index[i], 'FASTA_sequence'] = str(fasta.seq[tbox_all_DF['Tbox_start'][i] - 1:tbox_all_DF['Tbox_end'][i] + downstream_bases])
+                elif tbox_all_DF['Strand'][i] == '-':
+                    tbox_all_DF.at[tbox_all_DF.index[i], 'FASTA_sequence'] = str(fasta.seq[tbox_all_DF['Tbox_end'][i] - 1:tbox_all_DF['Tbox_start'][i] + downstream_bases].reverse_complement())
+
+    #Reset the T-box start and end
+    tbox_all_DF['Name'] = tbox_all_DF['Name']+':'+tbox_all_DF['Tbox_start'].astype(str)+'-'+tbox_all_DF['Tbox_end'].astype(str)
+    
+    tbox_all_DF['Tbox_start'] = 1
+    tbox_all_DF['Tbox_end'] = tbox_all_DF['FASTA_sequence'].str.len()
+    
+    tbox_all_DF['Tbox_end'] = tbox_all_DF['Tbox_end'] - downstream_bases #adjust for downstream bases
+
+
+    #Convert positions from INFERNAL-relative to FASTA-relative
+    merged = tbox_derive(tbox_all_DF)
+    #merged.to_csv('test_merge.csv', index = True, header = True)
+    print('Feature derivation complete. Running thermodynamics.')
+    thermo = run_thermo(merged)
+    print('Trimming structures and sequences')
+    thermo.to_csv(predictions_file, index = False, header = True)
+    thermo = trim(thermo)
+    
+    print('Removing duplicate T-boxes')
+    thermo.drop_duplicates(subset = 'Sequence', keep = 'first', inplace = True) #Drop duplicate T-boxes
+    
     #Write output
-    tbox_all_DF.to_csv(predictions_file, index = False, header = True)
+    thermo.to_csv(predictions_file, index = False, header = True)
     return 0
 
 #Get arguments from command line and run the prediction
