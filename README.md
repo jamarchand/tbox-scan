@@ -1,13 +1,15 @@
 # About tbox-scan
-A lightweight tool for discovering tboxes in a given FASTA sequence adapted from tbdb.io. Uses INFERNAL for prediction and allows for flexible use of covariance models. As output, provides predicted specifier region, most likely specifier, and the T-box sequence. 
+A lightweight tool for discovering tboxes in a given FASTA sequence adapted from tbdb.io. Uses INFERNAL for prediction and allows for flexible use of covariance models. As output, provides predicted specifier region, most likely specifier, and the T-box sequence. This tool is part of the T-box Annotation Database (TBDB, https://tbdb.io) collection. 
 
 
 # Dependencies 
-tbox-scan runs requires INFERNAL, python, conda, pandas. Installation of dependencies is easiest using conda with the given installation file. 
+This program is written for unix operating systems and requires INFERNAL, python, conda, pandas. Installation of dependencies is easiest using conda with the given installation file. 
 
 # Installation
-Have conda installed, then simply run install.sh (e.g. sh ./install.sh) to install tbox-scan. 
+Have conda installed, then simply cd into the directory with install.sh. Then, run the install using sh (e.g. sh ./install.sh) to install tbox-scan. A path env will be set to the tbox-scan directory that contains default files for running tbox-scan. 
 
+     sh ./install.sh
+     
 # Using tbox-scan 
   
     Usage: tbox-scan -f <Input FASTA file> [-options]
@@ -29,3 +31,10 @@ Have conda installed, then simply run install.sh (e.g. sh ./install.sh) to insta
       -v         : save verbose output
       -s         : silence console output
       -h         : print out summary of available options
+
+# About this work 
+Tbox-scan was written as an auxilliary tool for T-box Annotation Database (https://tbdb.io). More information about how the database was built can be found on the BioRxiv page. 
+
+- Marchand, J. A., Pierson Smela, M. D., Jordan, T. H. H., Narasimhan, K. & Church, G. M. (2020). TBDB – A database of structurally annotated T-box riboswitch:tRNA pairs. bioRxiv.
+
+
