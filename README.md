@@ -1,11 +1,11 @@
 
 
 # About tbox-scan
-A lightweight tool for discovering tboxes in a given FASTA sequence adapted from tbdb.io. Uses INFERNAL for prediction and allows for flexible use of covariance models. As output, provides predicted specifier region, most likely specifier, and the T-box sequence. This tool is part of the T-box Annotation Database (TBDB, https://tbdb.io) collection. 
+A lightweight tool for discovering tboxes in a given FASTA sequence adapted from tbdb.io. Uses INFERNAL for prediction and allows for flexible use of TBDB tbox covariance models. As output, provides predicted specifier region, most likely specifier, and the T-box sequence. This tool is part of the T-box Annotation Database (TBDB, https://tbdb.io) collection. Currently only supports input files with a single FASTA header and sequence. 
 
 
 # Dependencies 
-This program is written for unix operating systems and requires INFERNAL, python, biopython, conda, pandas. Installation of dependencies is easiest using conda.
+This program is written for unix operating systems and requires INFERNAL, python, biopython, conda, pandas. Installation of dependencies is easiest using conda. 
 
 # Installation
 Have conda installed, then simply cd into the directory with install.sh. Then, run the install using sh (e.g. sh ./install.sh) to install tbox-scan. A path env will be set to the tbox-scan directory that contains default files for running tbox-scan. The install script will also use pip to install the necessary python scripts to your current python environment. 
