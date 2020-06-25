@@ -28,8 +28,9 @@ Have conda installed, then simply cd into the directory with install.sh. Then, r
       -i <file>  : save INFERNAL output predictions to .txt <file>
                       default: INFERNAL.txt
       -l <file>  : save a .txt log <file> of pipeline output
-      -m <model> : search for mitochondrial tRNAs
-                      default: RF00230.cm (RFAM)
+      -m <model#> : search for t-boxes using specified covariance model
+                      1: RFAM model (RF00230.cm), works best on class I t-boxes
+                      2: TBDB model (TBDB001.cm), works best on class II t-boxes 
       -v         : save verbose output
       -s         : silence console output
       -h         : print out summary of available options
