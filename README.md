@@ -29,11 +29,16 @@ Have conda installed, then simply cd into the directory with install.sh. Then, r
                       default: INFERNAL.txt
       -l <file>  : save a .txt log <file> of pipeline output
       -m <model#> : search for t-boxes using specified covariance model
-                      1: RFAM model (RF00230.cm), works best on class I t-boxes
+                      1: RFAM model (RF00230.cm), works best on class I t-boxes (default)
                       2: TBDB model (TBDB001.cm), works best on class II t-boxes 
       -v         : save verbose output
       -s         : silence console output
       -h         : print out summary of available options
+
+    Examples
+        cd examples
+        tbox-scan  -f genome_example1.fa -o output_file1.csv -m 1 -v
+        tbox-scan  -f genome_example2.fa -o output_file2.csv -m 1 -s
 
 # About this work 
 Tbox-scan was written as an auxilliary tool for T-box Annotation Database (https://tbdb.io). More information about how the database was built can be found on the BioRxiv page. 
