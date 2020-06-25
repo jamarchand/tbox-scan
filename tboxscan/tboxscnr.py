@@ -14,18 +14,8 @@ import pkg_resources
 
 
 #Input parameters
-print(sys.argv[0])
-print(sys.argv[1])
-print(sys.argv[2])
-print(sys.argv[3])
-print(sys.argv[4])
-print(sys.argv[5])
-print(sys.argv[6])
-
-
 infile = sys.argv[1]
 outfile = sys.argv[2]
-#cm = sys.argv[3]
 cm = pkg_resources.resource_filename('tboxscan', sys.argv[3])
 infernal = sys.argv[4]
 logfile = sys.argv[5]
@@ -60,11 +50,10 @@ os.system('rm '+outfile+' >/dev/null 2> /dev/null')
 os.system('cmsearch --notrunc --notextw '+cm+' '+infile+' > '+infernal+' 2> /dev/null')
 
 #Run pipeline
-os.system('python3 -m tboxscan.pipeline_master.py '+infernal+' '+outfile+' '+infile+' $3 > '+logfile)
+os.system('python3 -m tboxscan.pipeline_master '+infernal+' '+outfile+' '+infile+' $3 > '+logfile)
 
 #Read output file
-#try:
-if 1>0:
+try:
     out = pd.read_csv(outfile)
     #Perform aa family lookup using LUT
     aalist=[None]*len(out)
@@ -92,7 +81,7 @@ if 1>0:
         print('\n\n')
         
         
-#except:
- #   print('Error: Failed to detect T-boxes in '+infile+' using '+cm)
+except:
+    print('Error: Failed to detect T-boxes in '+infile+' using '+cm)
 
 

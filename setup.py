@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="tboxscan", # Replace with your own username
-    version="0.5.11",
+    version="0.5.15",
     author="Jorge A. Marchand",
     author_email="marchand@hms.harvard.edu",
     description="A package for finding T-boxes in FASTA sequences",

@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: tboxscan
-Version: 0.5.11
+Version: 0.5.15
 Summary: A package for finding T-boxes in FASTA sequences
 Home-page: https://github.com/jamarchand/tbox-scan
 Author: Jorge A. Marchand
