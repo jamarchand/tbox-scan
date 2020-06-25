@@ -1,3 +1,6 @@
+# *Tool currently undergoing maintenence 6/25/20
+
+
 # About tbox-scan
 A lightweight tool for discovering tboxes in a given FASTA sequence adapted from tbdb.io. Uses INFERNAL for prediction and allows for flexible use of covariance models. As output, provides predicted specifier region, most likely specifier, and the T-box sequence. This tool is part of the T-box Annotation Database (TBDB, https://tbdb.io) collection. 
 
