@@ -8,8 +8,8 @@
 
 #Input flags
 infernal_out='INFERNAL.txt'
-model='RF00230.cm'
-input_file=''
+model='data/RF00230.cm'
+input_file='genome_example1.fa'
 log_file='tbox-scan_log.txt'
 output_file='out.csv'
 verbose='False'
@@ -64,6 +64,9 @@ while getopts 'f:o:ilmvsh' flag; do
   esac
 done
 
+echo $input_file
+echo $output_file
+
 
 #Try running using either python or python3
-python3 tboxscnr.py $input_file $output_file $model $infernal_out $log_file $verbose $silence || python tboxscnr.py $input_file $output_file $model $infernal_out $log_file $verbose $silence || echo Error: T-box scanning pipeline failed. Check proper usage, dependencies, and auxilliary files. && print_usage
+python3 -m tboxscan.tboxscnr.py $input_file $output_file $model $infernal_out $log_file $verbose $silence ||echo Error: T-box scanning pipeline failed. Check proper usage, dependencies, and auxilliary files. && print_usage

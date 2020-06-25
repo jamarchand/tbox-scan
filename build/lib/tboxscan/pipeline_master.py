@@ -11,6 +11,7 @@ from Bio.Seq import Seq
 from Bio.Alphabet import generic_dna
 import subprocess
 
+
 #Function to read an INFERNAL output file and extract sequence names, metadata, structure, and sequence
 #Metadata is as described in the INFERNAL manual
 def read_INFERNAL(file):

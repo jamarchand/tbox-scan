@@ -10,16 +10,30 @@ import os
 import pandas as pd
 from os import path
 import sys
+import pkg_resources
 
 
 #Input parameters
+print(sys.argv[0])
+print(sys.argv[1])
+print(sys.argv[2])
+print(sys.argv[3])
+print(sys.argv[4])
+print(sys.argv[5])
+print(sys.argv[6])
+
+
 infile = sys.argv[1]
 outfile = sys.argv[2]
-cm = sys.argv[3]
+#cm = sys.argv[3]
+cm = pkg_resources.resource_filename('tboxscan', sys.argv[3])
 infernal = sys.argv[4]
 logfile = sys.argv[5]
 verbose = sys.argv[6]
 silence = sys.argv[7]
+
+
+
 
 
 #Initialize
@@ -32,12 +46,12 @@ if path.exists(infile)==False:
 if path.exists(cm)==False:
     print('Error: Covariance model '+cm+' does not exist.')
 
-if path.exist('rccodonLUT.csv')==False:
-    print('Error: Missing amino acid LUT file '+cm+'.')
+if path.exists(pkg_resources.resource_filename('tboxscan', 'data/rccodonLUT.csv'))==False:
+    print('Error: Missing amino acid LUT file '+pkg_resources.resource_filename('tboxscan', 'data/rccodonLUT.csv')+'.')
 
 
 #Look up table for amino acid family predictions
-aalut=pd.read_csv('rccodonLUT.csv')
+aalut=pd.read_csv(pkg_resources.resource_filename('tboxscan', 'data/rccodonLUT.csv'))
  
 #Remove previous out file
 os.system('rm '+outfile+' >/dev/null 2> /dev/null')
@@ -46,10 +60,11 @@ os.system('rm '+outfile+' >/dev/null 2> /dev/null')
 os.system('cmsearch --notrunc --notextw '+cm+' '+infile+' > '+infernal+' 2> /dev/null')
 
 #Run pipeline
-os.system('python pipeline_master.py '+infernal+' '+outfile+' '+infile+' $3 > '+logfile+' 2> /dev/null')
+os.system('python3 -m tboxscan.pipeline_master.py '+infernal+' '+outfile+' '+infile+' $3 > '+logfile)
 
 #Read output file
-try:
+#try:
+if 1>0:
     out = pd.read_csv(outfile)
     #Perform aa family lookup using LUT
     aalist=[None]*len(out)
@@ -77,7 +92,7 @@ try:
         print('\n\n')
         
         
-except:
-    print('Error: Failed to detect T-boxes in '+infile+' using '+cm)
+#except:
+ #   print('Error: Failed to detect T-boxes in '+infile+' using '+cm)
 
 
