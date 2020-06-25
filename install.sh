@@ -11,6 +11,6 @@ echo "Exporting path to .bash_profile"
 
 echo "" >> ~/.bash_profile
 echo 'export PATH=${PATH}:'"$(pwd)" >> ~/.bash_profile
-echo "alias tbox-scanner='sh tbox-scanner'" >> ~/.bash_profile
+echo "alias tbox-scan='source tbox-scan'" >> ~/.bash_profile
 
 #exec bash
