@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="tbox-scan", # Replace with your own username
+    name="tboxscan", # Replace with your own username
     version="0.5",
     author="Jorge A. Marchand",
     author_email="marchand@hms.harvard.edu",
