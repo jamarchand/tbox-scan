@@ -67,6 +67,6 @@ done
 
 
 #Try running using either python or python3
-python3 -m tboxscan.tboxscnr $input_file $output_file $model $infernal_out $log_file $verbose $silence
+python -m tboxscan.tboxscnr $input_file $output_file $model $infernal_out $log_file $verbose $silence
 
 #||echo Error: T-box scanning pipeline failed. Check proper usage, dependencies, and auxilliary files. && print_usage
