@@ -2,10 +2,12 @@ README.md
 setup.py
 tboxscan/__init__.py
 tboxscan/pipeline_master.py
+tboxscan/pipeline_translational.py
 tboxscan/tboxscnr.py
 tboxscan.egg-info/PKG-INFO
 tboxscan.egg-info/SOURCES.txt
 tboxscan.egg-info/dependency_links.txt
 tboxscan.egg-info/top_level.txt
 tboxscan/data/RF00230.cm
+tboxscan/data/TBDB001.cm
 tboxscan/data/rccodonLUT.csv

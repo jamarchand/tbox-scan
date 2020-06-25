@@ -16,18 +16,24 @@ import pkg_resources
 #Input parameters
 infile = sys.argv[1]
 outfile = sys.argv[2]
-cm = pkg_resources.resource_filename('tboxscan', sys.argv[3])
 infernal = sys.argv[4]
 logfile = sys.argv[5]
 verbose = sys.argv[6]
 silence = sys.argv[7]
 
-
-
-
-
+#Covariance model choice
+if sys.argv[3]=='1':
+    cm = pkg_resources.resource_filename('tboxscan', 'data/RF00230.cm')
+    mode='classI'
+elif sys.argv[3]=='2':
+    cm = pkg_resources.resource_filename('tboxscan', 'data/TBDB001.cm')
+    mode='classII'
+else:
+    print('Invalid covariance model supplied. Try using -m 1 or -m 2 as flags')
+    exit()
+    
 #Initialize
-print('\nRunning T-box scanner on '+infile+'\n')
+print('\nRunning T-box scanner on '+infile+' using covariance model for '+mode+' t-boxes'+'\n')
 
 #Check files exist
 if path.exists(infile)==False:
@@ -45,12 +51,18 @@ aalut=pd.read_csv(pkg_resources.resource_filename('tboxscan', 'data/rccodonLUT.c
  
 #Remove previous out file
 os.system('rm '+outfile+' >/dev/null 2> /dev/null')
- 
-#Run cmsearch
-os.system('cmsearch --notrunc --notextw '+cm+' '+infile+' > '+infernal+' 2> /dev/null')
 
-#Run pipeline
-os.system('python3 -m tboxscan.pipeline_master '+infernal+' '+outfile+' '+infile+' $3 > '+logfile)
+
+#Run CMsearch and feature identification depending on chosen model
+if mode == "classI":
+    os.system('cmsearch --notrunc --notextw '+cm+' '+infile+' > '+infernal)
+    print("INFERNAL output saved to " +infernal+ " Extracting features . . .")
+    os.system('python -m tboxscan.pipeline_master '+infernal+' '+outfile+' '+infile+' $3 > '+logfile)
+elif mode == "classII":
+    os.system('cmsearch --notrunc --notextw '+cm+' '+infile+' > '+infernal)
+    print("INFERNAL output saved to " +infernal+ " Extracting features . . .")
+    os.system('python -m tboxscan.pipeline_translational '+infernal+' '+outfile+' '+infile+' $3 > '+logfile)
+
 
 #Read output file
 try:

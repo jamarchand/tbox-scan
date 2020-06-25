@@ -1,4 +1,3 @@
-# *Tool currently undergoing maintenence 6/25/20
 
 
 # About tbox-scan
@@ -6,10 +5,10 @@ A lightweight tool for discovering tboxes in a given FASTA sequence adapted from
 
 
 # Dependencies 
-This program is written for unix operating systems and requires INFERNAL, python, conda, pandas. Installation of dependencies is easiest using conda with the given installation file. 
+This program is written for unix operating systems and requires INFERNAL, python, biopython, conda, pandas. Installation of dependencies is easiest using conda.
 
 # Installation
-Have conda installed, then simply cd into the directory with install.sh. Then, run the install using sh (e.g. sh ./install.sh) to install tbox-scan. A path env will be set to the tbox-scan directory that contains default files for running tbox-scan. 
+Have conda installed, then simply cd into the directory with install.sh. Then, run the install using sh (e.g. sh ./install.sh) to install tbox-scan. A path env will be set to the tbox-scan directory that contains default files for running tbox-scan. The install script will also use pip to install the necessary python scripts to your current python environment. 
 
      sudo sh ./install.sh
      

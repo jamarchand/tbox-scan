@@ -8,8 +8,8 @@
 
 #Input flags
 infernal_out='INFERNAL.txt'
-model='data/RF00230.cm'
-input_file='genome_example1.fa'
+model='1'
+input_file=''
 log_file='tbox-scan_log.txt'
 output_file='out.csv'
 verbose='False'
@@ -35,8 +35,9 @@ print_usage() {
     -i <file>  : save INFERNAL output predictions to .txt <file>
                     default: INFERNAL.txt
     -l <file>  : save a .txt log <file> of pipeline output
-    -m <model> : search for mitochondrial tRNAs
-                    default: RF00230.cm (RFAM)
+    -m <model#> : search for T-boxes using different covariance models
+                    1: RFAM model (RFAM00230.cm), finds mostly class I transcriptional T-boxes (default)
+                    2: Translational Ile (TBDB001.cm), finds mostly class II translational T-boxes
     -v         : save verbose output
     -s         : silence console output
     -h         : print out summary of available options
@@ -48,7 +49,7 @@ print_usage() {
 
 
 #Flag handling
-while getopts 'f:o:ilmvsh' flag; do
+while getopts 'f:o:i:l:m:vsh' flag; do
   case "${flag}" in
     f) input_file="${OPTARG}" ;;
     o) output_file="${OPTARG}" ;;
