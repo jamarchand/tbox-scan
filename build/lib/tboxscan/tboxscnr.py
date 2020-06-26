@@ -20,6 +20,7 @@ infernal = sys.argv[4]
 logfile = sys.argv[5]
 verbose = sys.argv[6]
 silence = sys.argv[7]
+cutoff = sys.argv[8]
 
 #Covariance model choice
 if sys.argv[3]=='1':
@@ -80,6 +81,11 @@ try:
     out['Locus'] = out['Name'].str.split(':').str[-1]
     outmess=out[['Locus','Score','AA', 'codon_region', 'codon', 'discriminator']]
     outmess.columns=['Locus', 'Score', 'AA Family', 'Spec_Region', 'Specifier', 'T-box Seq']
+
+
+    #Apply cutoff
+    out=out.loc[out['Score'] >= float(cutoff)]
+    outmess=outmess.loc[outmess['Score'] >= float(cutoff)]
 
     #Write output
     if verbose == 'True':

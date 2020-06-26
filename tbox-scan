@@ -14,6 +14,7 @@ log_file='tbox-scan_log.txt'
 output_file='out.csv'
 verbose='False'
 silence='False'
+cutoff='15'
 
 #User help message
 print_usage() {
@@ -38,6 +39,7 @@ print_usage() {
     -m <model#> : search for T-boxes using different covariance models
                     1: RFAM model (RFAM00230.cm), finds mostly class I transcriptional T-boxes (default)
                     2: Translational Ile (TBDB001.cm), finds mostly class II translational T-boxes
+    -c <value> : score cutoff for INFERNAL model predictions (default = 15)
     -v         : save verbose output
     -s         : silence console output
     -h         : print out summary of available options
@@ -49,7 +51,7 @@ print_usage() {
 
 
 #Flag handling
-while getopts 'f:o:i:l:m:vsh' flag; do
+while getopts 'f:o:i:l:m:vc:sh' flag; do
   case "${flag}" in
     f) input_file="${OPTARG}" ;;
     o) output_file="${OPTARG}" ;;
@@ -58,6 +60,7 @@ while getopts 'f:o:i:l:m:vsh' flag; do
     m) model="${OPTARG}" ;;
     v) verbose='True' ;;
     s) silence='True' ;;
+    c) cutoff="${OPTARG}" ;;
     h) print_usage
         exit 1 ;;
     *) print_usage
@@ -67,6 +70,6 @@ done
 
 
 #Try running using either python or python3
-python -m tboxscan.tboxscnr $input_file $output_file $model $infernal_out $log_file $verbose $silence
+python -m tboxscan.tboxscnr $input_file $output_file $model $infernal_out $log_file $verbose $silence $cutoff
 
 #||echo Error: T-box scanning pipeline failed. Check proper usage, dependencies, and auxilliary files. && print_usage

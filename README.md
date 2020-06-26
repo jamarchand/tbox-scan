@@ -33,6 +33,7 @@ Have conda installed, then simply cd into the directory with install.sh. Then, r
       -m <model#> : search for t-boxes using specified covariance model
                       1: RFAM model (RF00230.cm), works best on class I t-boxes (default)
                       2: TBDB model (TBDB001.cm), works best on class II t-boxes 
+      -c <value> : score cutoff for INFERNAL model predictions (default = 15)
       -v         : save verbose output
       -s         : silence console output
       -h         : print out summary of available options
