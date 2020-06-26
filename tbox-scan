@@ -26,13 +26,14 @@ print_usage() {
 
   Scan a fasta sequence file for T-boxes and predict specifier & T-box sequence.
             -- Default: Will use INFERNAL with RFAM00230 covariance model with basic output
-            -- Example: tbox-scan  -f input.fa -o output_file.csv -v
-  Dependencies: INFERNAL, cmsearch, python3, pandas.
+            -- Example: tbox-scan  -f input.fa -o output_file.csv -v -m 1 -c 100
+  Dependencies: INFERNAL, cmsearch, biopython, python3, pandas.
 
             
   Options
-    -f <file>  : input FASTA <file>
+    -f <file>  : input FASTA <file> (required)
     -o <file>  : save final results in <file> as .csv
+                    default: out.csv
     -i <file>  : save INFERNAL output predictions to .txt <file>
                     default: INFERNAL.txt
     -l <file>  : save a .txt log <file> of pipeline output
@@ -69,7 +70,7 @@ while getopts 'f:o:i:l:m:vc:sh' flag; do
 done
 
 
-#Try running using either python or python3
+#Try running using python
 python -m tboxscan.tboxscnr $input_file $output_file $model $infernal_out $log_file $verbose $silence $cutoff
 
 #||echo Error: T-box scanning pipeline failed. Check proper usage, dependencies, and auxilliary files. && print_usage
