@@ -21,7 +21,7 @@ Have conda installed, then simply cd into the directory with install.sh. Then, r
     Scan a fasta sequence file for T-boxes and predict specifier & T-box sequence.
               -- Default: Will use INFERNAL with RFAM00230 covariance model with basic output
               -- Example: tbox-scan  -f input.fa -o output_file.csv -v
-    Dependencies: INFERNAL, cmsearch, python3, pandas.
+    Dependencies: INFERNAL, cmsearch, biopython, python3, pandas.
 
 
     Options
