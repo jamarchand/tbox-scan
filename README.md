@@ -5,7 +5,7 @@ A lightweight tool for discovering tboxes in a given FASTA sequence adapted from
 
 
 # Dependencies 
-This program is written for unix operating systems and requires INFERNAL, cmsearch, python, biopython, conda, pandas. Installation of dependencies is easiest using conda in a conda environment. 
+This program is written for unix operating systems and requires INFERNAL, python, biopython, conda, and pandas. Installation of dependencies is easiest using conda in a conda environment. 
 
 # Installation
 First, download or clone this repo then simply cd into the directory with install.sh. Run the install using sh (e.g. sh install.sh or sudo sh install.sh ) to install tbox-scan. A PATH env will be set to the tbox-scan directory that contains default files for running tbox-scan. The install script will also use pip to install the necessary python scripts to your current python environment. If errors arise, please check for missing python dependencies and correct python environment. 
@@ -21,7 +21,7 @@ First, download or clone this repo then simply cd into the directory with instal
     Scan a fasta sequence file for T-boxes and predict specifier & T-box sequence.
               -- Default: Will use INFERNAL with RFAM00230 covariance model with basic output
               -- Example: tbox-scan  -f input.fa -o output_file.csv -v
-    Dependencies: INFERNAL, biopython, cmsearch, python3, pandas.
+    Dependencies: INFERNAL, biopython, python3, pandas.
 
 
     Options
