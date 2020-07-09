@@ -7,12 +7,17 @@ A lightweight tool for discovering tboxes in a given FASTA sequence adapted from
 # Dependencies 
 This program is written for unix operating systems and requires INFERNAL, python, biopython, conda, and pandas. Installation of dependencies is easiest using conda in a conda environment. 
 
-# Installation
+# Installation from source (requires pip) 
 First, download or clone this repo then simply cd into the directory with install.sh. Run the install using sh (e.g. sh install.sh or sudo sh install.sh ) to install tbox-scan. A PATH env will be set to the tbox-scan directory that contains default files for running tbox-scan. The install script will also use pip to install the necessary python scripts to your current python environment. If errors arise, please check for missing python dependencies and correct python environment. 
 
      git clone https://github.com/jamarchand/tbox-scan
      cd tbox-scan
      sh install.sh
+     
+# Installation using Conda 
+You can also easily install tbox-scan as a commnad line tool using conda. Simply use the following conda command. 
+
+     conda install tbox-scan 
      
 # Using tbox-scan 
   
