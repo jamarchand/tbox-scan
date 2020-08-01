@@ -1,7 +1,7 @@
 
 
 # About tbox-scan
-A lightweight tool for discovering tboxes in a given FASTA sequence adapted from tbdb.io. Uses INFERNAL for prediction. Employs TBDB feature identification to identify likely specifier sequence. Provides predicted specifier region, most likely specifier, T-box sequence, and makes structure predictions. For transcriptional T-boxes, will also attempt to fold terminator structure. Feature refinement based on gene context and host organism tRNAs is not included in this tool. This tool is part of the T-box Annotation Database (TBDB, https://tbdb.io) collection. Currently only supports input files with a single FASTA header and sequence.  Accepts whole genomes as inputs. 
+A lightweight tool for discovering T-box riboswitches in a given FASTA sequence adapted from tbdb.io. Uses INFERNAL for prediction. Employs TBDB feature identification to identify likely specifier sequence. Provides predicted specifier region, most likely specifier, T-box sequence, and makes structure predictions. For transcriptional T-boxes, will also attempt to fold terminator structure. Feature refinement based on gene context and host organism tRNAs is not included in this tool. This tool is part of the T-box Annotation Database (TBDB, https://tbdb.io) collection. Currently only supports input files with a single FASTA header and sequence.  Accepts whole genomes as inputs. 
 
 
 # Dependencies 
