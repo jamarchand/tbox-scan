@@ -5,10 +5,10 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="tboxscan", # Replace with your own username
-    version="0.5.21",
+    version="0.5.23",
     author="Jorge A. Marchand",
     author_email="marchand@hms.harvard.edu",
-    description="A package for finding T-boxes in FASTA sequences",
+    description="A package for finding T-box riboswitches in FASTA sequences",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/jamarchand/tbox-scan",

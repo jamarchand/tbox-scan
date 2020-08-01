@@ -2,7 +2,7 @@
 #Initialize T-box predictions pipeline
 
 echo "Installing trnascan python scripts to current python environment"
-pip install -i https://test.pypi.org/simple/ tboxscan==0.5.21
+pip install -i https://test.pypi.org/simple/ tboxscan==0.5.23
 
 echo "Exporting path to .bash_profile"
 echo "" >> ~/.bash_profile
